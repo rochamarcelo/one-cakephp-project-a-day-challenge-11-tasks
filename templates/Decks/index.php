@@ -10,6 +10,43 @@
         color: white;
     }
 </style>
+<?= $this->Form->create($newDeck, [
+    'url' => [
+        'action' => 'add',
+    ]
+]) ?>
+<div class="row">
+    <div class="col-sm-3">
+    <?= $this->Form->control('name', [
+        'class' => 'form-control',
+        'label' => false,
+        'placeholder' => __('New Deck Name'),
+    ])?>
+    </div>
+    <div class="col-sm-3">
+        <?= $this->Form->control('style', [
+            'class' => 'form-control',
+            'label' => false,
+            'options' => [
+                'primary' => 'primary',
+                'secondary' => 'secondary',
+                'success' => 'success',
+                'danger' => 'danger',
+                'warning' => 'warning',
+                'info' => 'info',
+            ],
+            'empty' => __('Select a Style'),
+        ]);
+        ?>
+    </div>
+    <div class="col-sm-3">
+        <?= $this->Form->button(__('Create New Deck'), [
+            'class' => 'btn btn-primary',
+        ]) ?>
+    </div>
+</div>
+<hr />
+<?= $this->Form->end() ?>
 <div class="row">
     <?php foreach ($decks as $deck):?>
     <div class="col-sm-3  mb-3">
@@ -80,51 +117,4 @@
         </div>
     </div>
     <?php endforeach;?>
-    <div class="col-sm-3">
-        <div class="card text-white">
-            <div class="card-header  bg-primary mb-3">Header</div>
-            <div class="card-body">
-                <h5 class="card-title">Primary card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"><?= __('New Deck')?></h5>
-                <?= $this->Form->create($newDeck, [
-                    'url' => [
-                        'action' => 'add',
-                    ]
-                ]) ?>
-                    <?php
-                    echo $this->Form->control('name', [
-                        'class' => 'form-control',
-                        'label' => [
-                            'class' => 'form-label',
-                        ],
-                    ]);
-                    echo $this->Form->control('style', [
-                        'class' => 'form-control',
-                        'label' => [
-                            'class' => 'form-label',
-                        ],
-                        'options' => [
-                            'primary' => 'primary',
-                            'secondary' => 'secondary',
-                            'success' => 'success',
-                            'danger' => 'danger',
-                            'warning' => 'warning',
-                            'info' => 'info',
-                        ]
-                    ]);
-                    ?>
-                <?= $this->Form->button(__('Create'), [
-                    'class' => 'btn btn-primary',
-                ]) ?>
-                <?= $this->Form->end() ?>
-            </div>
-        </div>
-    </div>
 </div>
