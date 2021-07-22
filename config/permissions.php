@@ -134,6 +134,12 @@ return [
             'controller' => '*',
             'action' => '*',
             'bypassAuth' => true,
-        ],       
+        ],
+        [
+            'role' => 'user',
+            'plugin' => false,
+            'controller' => 'Decks',
+            'action' => ['index', 'add', 'delete'],
+        ],
     ]
 ];

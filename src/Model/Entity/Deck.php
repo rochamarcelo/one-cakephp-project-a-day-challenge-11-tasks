@@ -31,9 +31,9 @@ class Deck extends Entity
     protected $_accessible = [
         'name' => true,
         'style' => true,
-        'user_id' => true,
+        'user_id' => false,
         'created' => true,
-        'user' => true,
+        'user' => false,
         'tasks' => true,
     ];
 }

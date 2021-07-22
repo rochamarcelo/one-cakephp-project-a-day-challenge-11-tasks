@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div class="col-lg-8 mx-auto p-3 py-md-5">
+<div class="col-lg-12 mx-auto p-3 py-md-5">
     <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img">
             <title>Bootstrap</title>
