@@ -12,9 +12,9 @@
 </style>
 <div class="row">
     <?php foreach ($decks as $deck):?>
-    <div class="col-sm-3">
-        <div class="card text-white border-<?= h($deck->style)?>" style="min-height: 80vh">
-            <div class="card-header bg-<?= h($deck->style)?> mb-3">
+    <div class="col-sm-3  mb-3">
+        <div class="card border-<?= h($deck->style)?>">
+            <div class="card-header text-white bg-<?= h($deck->style)?>">
                 <?= h($deck->name)?>
                 <div class="float-end">
                     <?= $this->Form->postLink(
@@ -28,17 +28,47 @@
                 </div>
             </div>
             <div class="card-body">
+                <?= $this->Form->create(null, [
+                    'url' => [
+                        'controller' => 'Tasks',
+                        'action' => 'add',
+                        $deck->id,
+                    ]
+                ]) ?>
+                <?php
+                echo $this->Form->control('name', [
+                    'class' => 'form-control',
+                    'placeholder' => __('New Task'),
+                    'label' => false,
+                ]);
+                ?>
+                <div class="d-grid gap-2">
+                    <?= $this->Form->button(__('Create Task'), [
+                        'class' => 'btn btn-primary',
+                    ]) ?>
+                </div>
+
+                <?= $this->Form->end() ?>
+                <hr />
                 <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <?php foreach ($deck->tasks as $task):?>
+                    <li class="list-group-item d-flex justify-content-between align-items-start border-<?= h($deck->style)?>">
                         <div class="ms-2 me-auto">
-                            Cras justo odio
+                            <?= h($task->name)?>
                         </div>
-                        <span class="badge bg-primary rounded-pill" style="cursor: pointer;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
-                              <path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/>
-                            </svg>
+
+                        <span class="badge bg-primary rounded-pill">
+                            <?= $this->Form->postLink(
+                                '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path d="M13.485 1.431a1.473 1.473 0 0 1 2.104 2.062l-7.84 9.801a1.473 1.473 0 0 1-2.12.04L.431 8.138a1.473 1.473 0 0 1 2.084-2.083l4.111 4.112 6.82-8.69a.486.486 0 0 1 .04-.045z"/></svg>',
+                                [
+                                    'action' => 'complete',
+                                    $task->id,
+                                ],
+                                ['escapeTitle' => false,]
+                            )?>
                         </span>
                     </li>
+                    <?php endforeach;?>
                 </ul>
             </div>
         </div>

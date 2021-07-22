@@ -141,5 +141,11 @@ return [
             'controller' => 'Decks',
             'action' => ['index', 'add', 'delete'],
         ],
+        [
+            'role' => 'user',
+            'plugin' => false,
+            'controller' => 'Tasks',
+            'action' => ['add', 'complete'],
+        ],
     ]
 ];

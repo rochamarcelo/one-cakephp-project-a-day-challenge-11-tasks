@@ -19,6 +19,7 @@ class DecksController extends AppController
     public function index()
     {
         $decks = $this->Decks->find()
+            ->contain(['Tasks'])
             ->where([
                 'user_id' => $this->request->getAttribute('identity')['id'],
             ])
