@@ -55,6 +55,10 @@ class DecksTable extends Table
         ]);
         $this->hasMany('Tasks', [
             'foreignKey' => 'deck_id',
+            'sort' => [
+                'completed' => 'ASC',
+                'created' => 'DESC',
+            ]
         ]);
     }
 

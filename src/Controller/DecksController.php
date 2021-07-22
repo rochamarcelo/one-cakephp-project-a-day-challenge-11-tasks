@@ -23,6 +23,7 @@ class DecksController extends AppController
             ->where([
                 'user_id' => $this->request->getAttribute('identity')['id'],
             ])
+            ->orderAsc('name')
             ->all();
         $newDeck = $this->Decks->newEmptyEntity();
         $this->set(compact('decks', 'newDeck'));
