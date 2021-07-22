@@ -21,10 +21,45 @@ class TasksController extends AppController
     public function add(string $deckId)
     {
         $this->request->allowMethod(['post', 'put']);
-        $deck = $this->Tasks->Decks->get($deckId);
+        $deck = $this->Tasks->Decks->find()
+            ->where([
+                'id' => $deckId,
+                'user_id' => $this->request->getAttribute('identity')['id'],
+            ])
+            ->firstOrFail();
         $task = $this->Tasks->newEmptyEntity();
         $task = $this->Tasks->patchEntity($task, $this->request->getData());
         $task->deck_id = $deck->id;
+        if ($this->Tasks->save($task)) {
+            $this->Flash->success(__('The task has been saved.'));
+        } else {
+            $this->Flash->error(__('The task could not be saved. Please, try again.'));
+        }
+
+        return $this->redirect([
+            'controller' => 'Decks',
+            'action' => 'index'
+        ]);
+    }
+
+    /**
+     * Action to mark a task as completed
+     *
+     * @param string|null $id The user deck id
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function complete(string $id)
+    {
+        $this->request->allowMethod(['post', 'put']);
+        $task = $this->Tasks->find()
+            ->contain(['Decks'])
+            ->where([
+                'Decks.user_id' => $this->request->getAttribute('identity')['id'],
+                'Tasks.id' => $id,
+            ])
+            ->firstOrFail();
+        $task->set('completed', true);
+
         if ($this->Tasks->save($task)) {
             $this->Flash->success(__('The task has been saved.'));
         } else {
