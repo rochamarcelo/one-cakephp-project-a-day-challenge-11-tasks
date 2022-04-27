@@ -102,4 +102,18 @@ class DecksTable extends Table
 
         return $rules;
     }
+
+    /**
+     * @param array|\ArrayAccess $user
+     * @return \Cake\ORM\Query
+     */
+    public function getMainQuery($user): \Cake\ORM\Query
+    {
+        return $this->find()
+            ->contain(['Tasks'])
+            ->where([
+                'user_id' => $user['id'],
+            ])
+            ->orderAsc('name');
+    }
 }

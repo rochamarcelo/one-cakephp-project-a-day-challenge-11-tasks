@@ -18,15 +18,25 @@ class DecksController extends AppController
      */
     public function index()
     {
-        $decks = $this->Decks->find()
-            ->contain(['Tasks'])
-            ->where([
-                'user_id' => $this->request->getAttribute('identity')['id'],
-            ])
-            ->orderAsc('name')
+        $decks = $this->Decks->getMainQuery($this->request->getAttribute('identity'))
             ->all();
         $newDeck = $this->Decks->newEmptyEntity();
         $this->set(compact('decks', 'newDeck'));
+    }
+
+    /**
+     * View method
+     *
+     * @param string|int $id Deck id.
+     *
+     * @return \Cake\Http\Response|null display the deck
+     */
+    public function view($id)
+    {
+        $deck = $this->Decks->getMainQuery($this->request->getAttribute('identity'))
+            ->where(['Decks.id' => $id])
+            ->firstOrFail();
+        $this->set(compact('deck'));
     }
 
     /**

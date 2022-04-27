@@ -12,6 +12,17 @@
     <?= $this->Html->script(['bootstrap.bundle.min.js']) ?>
     <?= $this->Html->script(['https://unpkg.com/@hotwired/turbo@7.1.0/dist/turbo.es2017-umd.js']) ?>
     <?= $this->fetch('script') ?>
+    <style>
+        .card a, .card .card-header button, .card .card-header button:hover{
+            color: white;
+            padding: 0;
+        }
+        .btn-complete {
+            color: white;
+            line-height: 1;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
 
