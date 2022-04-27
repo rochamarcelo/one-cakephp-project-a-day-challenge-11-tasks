@@ -10,6 +10,7 @@
     <?= $this->Html->css(['bootstrap.min.css']) ?>
     <?= $this->fetch('css') ?>
     <?= $this->Html->script(['bootstrap.bundle.min.js']) ?>
+    <?= $this->Html->script(['https://unpkg.com/@hotwired/turbo@7.1.0/dist/turbo.es2017-umd.js']) ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
