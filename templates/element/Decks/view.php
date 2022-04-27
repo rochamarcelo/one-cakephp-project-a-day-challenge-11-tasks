@@ -16,7 +16,10 @@
                         'action' => 'delete',
                         $deck->id,
                     ],
-                    ['escapeTitle' => false, 'class' => 'btn',]
+                    [
+                        'escapeTitle' => false, 'class' => 'btn',
+                        'data-turbo-frame' => '_top',
+                    ]
                 )?>
             </div>
         </div>
