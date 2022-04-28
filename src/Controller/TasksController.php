@@ -38,7 +38,8 @@ class TasksController extends AppController
 
         return $this->redirect([
             'controller' => 'Decks',
-            'action' => 'index'
+            'action' => 'view',
+            $deckId,
         ]);
     }
 
@@ -68,7 +69,8 @@ class TasksController extends AppController
 
         return $this->redirect([
             'controller' => 'Decks',
-            'action' => 'index'
+            'action' => 'view',
+            $task->get('deck_id'),
         ]);
     }
 }

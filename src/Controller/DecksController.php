@@ -18,15 +18,25 @@ class DecksController extends AppController
      */
     public function index()
     {
-        $decks = $this->Decks->find()
-            ->contain(['Tasks'])
-            ->where([
-                'user_id' => $this->request->getAttribute('identity')['id'],
-            ])
-            ->orderAsc('name')
+        $decks = $this->Decks->getMainQuery($this->request->getAttribute('identity'))
             ->all();
         $newDeck = $this->Decks->newEmptyEntity();
         $this->set(compact('decks', 'newDeck'));
+    }
+
+    /**
+     * View method
+     *
+     * @param string|int $id Deck id.
+     *
+     * @return \Cake\Http\Response|null display the deck
+     */
+    public function view($id)
+    {
+        $deck = $this->Decks->getMainQuery($this->request->getAttribute('identity'))
+            ->where(['Decks.id' => $id])
+            ->firstOrFail();
+        $this->set(compact('deck'));
     }
 
     /**
@@ -41,12 +51,15 @@ class DecksController extends AppController
         $deck = $this->Decks->patchEntity($deck, $this->request->getData());
         $deck->user_id = $this->request->getAttribute('identity')['id'];
         if ($this->Decks->save($deck)) {
+            $deck->tasks = [];
+            $this->set(compact('deck'));
             $this->Flash->success(__('The deck has been saved.'));
+            $this->prepareTurboStream();
         } else {
             $this->Flash->error(__('The deck could not be saved. Please, try again.'));
-        }
 
-        return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
+        }
     }
 
     /**
@@ -68,10 +81,21 @@ class DecksController extends AppController
 
         if ($this->Decks->delete($deck)) {
             $this->Flash->success(__('The deck has been deleted.'));
+            $this->set(compact('id'));
+            $this->prepareTurboStream();
         } else {
             $this->Flash->error(__('The deck could not be deleted. Please, try again.'));
-        }
 
-        return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function prepareTurboStream(): void
+    {
+        $this->viewBuilder()->setLayout('stream');
+        $this->response = $this->response->withHeader('Content-Type', 'text/vnd.turbo-stream.html');
     }
 }
