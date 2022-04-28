@@ -40,6 +40,7 @@
                 'class' => 'form-control',
                 'placeholder' => __('New Task'),
                 'label' => false,
+                'value' => '',
             ]);
             ?>
             <div class="d-grid gap-2">
