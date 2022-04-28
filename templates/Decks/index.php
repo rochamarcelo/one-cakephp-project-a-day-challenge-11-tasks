@@ -8,7 +8,8 @@
 <?= $this->Form->create($newDeck, [
     'url' => [
         'action' => 'add',
-    ]
+    ],
+    'enctype' => 'text/vnd.turbo-stream.html',
 ]) ?>
 <div class="row">
     <div class="col-sm-3">
@@ -42,10 +43,8 @@
 </div>
 <hr />
 <?= $this->Form->end() ?>
-<div class="row">
+<div class="row" id="decks-list">
 <?php foreach ($decks as $deck):?>
-    <div class="col-sm-3  mb-3">
     <?= $this->element('Decks/view', ['deck' => $deck, 'renderFlash' => false,])?>
-    </div>
 <?php endforeach;?>
 </div>

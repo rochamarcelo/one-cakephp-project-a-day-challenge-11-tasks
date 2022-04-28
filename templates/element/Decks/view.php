@@ -5,7 +5,7 @@
  * @var \App\Model\Entity\Deck $deck
  */
 ?>
-<turbo-frame id="tasks_desk_<?= $deck->id?>">
+<turbo-frame id="tasks_desk_<?= $deck->id?>" class="col-sm-3  mb-3">
     <div class="card border-<?= h($deck->style)?>">
         <div class="card-header text-white bg-<?= h($deck->style)?>">
             <?= h($deck->name)?>
@@ -19,6 +19,9 @@
                     [
                         'escapeTitle' => false, 'class' => 'btn',
                         'data-turbo-frame' => '_top',
+                        'form' => [
+                            'enctype' => 'text/vnd.turbo-stream.html',
+                        ],
                     ]
                 )?>
             </div>

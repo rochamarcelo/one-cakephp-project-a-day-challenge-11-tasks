@@ -22,6 +22,9 @@
             line-height: 1;
             padding: 0;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -29,7 +32,9 @@
 <div class="col-lg-12 mx-auto p-3 py-md-5">
     <main>
         <div class="row">
-            <?= $this->Flash->render() ?>
+            <div id="app-flash-messages">
+                <?= $this->Flash->render() ?>
+            </div>
             <?= $this->fetch('content') ?>
         </div>
     </main>
